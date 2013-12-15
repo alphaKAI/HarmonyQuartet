@@ -1,0 +1,33 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+li {
+  height:53px;
+  padding: 5px;
+  margin-bottom: 7px;
+  color: #FFF;
+  background-color: #0593e2;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+.reply{
+  background-color:#922c2c;
+}
+img {
+  position:absolute;
+  float:left;
+}
+.tweet{
+  padding-left:53px;
+}
+textarea{
+  height:50px;
+  width:800px;
+}

@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Harmony Quartet</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://localhost:3000');
+      socket.on('message', function(t){
+        $('<div></div>')
+          .html('<li class="test">' + t + '</li>')
+          .prependTo('#tweets');
+      });
+	  function tweet(){
+		socket.emit('post', {mode: "tweet", text: $("#textbox").val()});
+		$("#textbox").val() = "";
+	  }
+    </script>
+  </head>
+  <body>
+    <h1>Harmony Quartet</h1>
+    <div class="send">
+		<textarea name="textbox" id="textbox" cols="30" rows="10"></textarea>
+		<input type="button" value="tweet" onclick="tweet();">
+	</div>
+    <ul>
+    <div id="tweets"></div>
+    </ul>
+  </body>
+</html>
