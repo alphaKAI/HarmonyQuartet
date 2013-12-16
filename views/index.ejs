@@ -10,12 +10,12 @@
       var socket = io.connect('http://localhost:3000');
       socket.on('message', function(t){
         $('<div></div>')
-          .html('<li class="test">' + t + '</li>')
+          .html('<li class="test">' + t + '<div class="toggle"><span class="reply">Reply</span><span class="rt">Retweet</span><span class="favorite">Favorite</span></div></li>')
           .prependTo('#tweets');
       });
 	  function tweet(){
 		socket.emit('post', {mode: "tweet", text: $("#textbox").val()});
-		$("#textbox").val() = "";
+		$("#textbox").val("");
 	  }
     </script>
   </head>

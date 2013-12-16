@@ -49,9 +49,6 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 var io = require('socket.io').listen(server);
 
 var cnt = 1
-//app.post('/', function(req, res){
-//	console.log(req);
-//});
 
 io.sockets.on('connection', function (socket) {
 	socket.on('post', function (data){
@@ -68,14 +65,16 @@ app.get('/', function(req, res){
 	admin_name = data["screen_name"];
   });
   
-  twitter.stream('user', {}, function (stream){
+   twitter.stream('user', {}, function (stream){
 	stream.on('data', function (data){
 		var uinfo = {};
-		if(cnt >= 2){
+		var tweet = new String;
+		tweet = data["text"];
+		
+		//クラッシュしないようにツイートがあるか判定する
+		if(tweet != undefined){
 			uinfo = data["user"];
 			var uname = uinfo["name"];
-			var tweet = new String;
-			tweet = data["text"];
 			var div_twi = new String;
 			
 			if(tweet.indexOf(admin_name) != -1){
@@ -90,7 +89,7 @@ app.get('/', function(req, res){
 			io.sockets.emit('message', str);
 			console.log(str);
 		}
-		cnt++
+		cnt++;
 	});
 	stream.on('end', function (response){
   

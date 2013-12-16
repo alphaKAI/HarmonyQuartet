@@ -28,6 +28,25 @@ img {
   padding-left:53px;
 }
 textarea{
-  height:50px;
+  height:60px;
   width:800px;
+}
+.toggle{
+  display:inline;
+  float:right;
+}
+.reply, .rt, .favorite{
+  margin-left:5px;
+  padding-left:5px;
+  margin-right:5px;
+  padding-right:5px;
+}
+.reply{
+  background-color:#861313;
+}
+.rt{
+  background-color:#0b4747;
+}
+.favorite{
+  background-color:#cc6e28;
 }
