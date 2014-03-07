@@ -1,32 +1,44 @@
-﻿<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Harmony Quartet</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io.connect('http://localhost:3000');
-      socket.on('message', function(t){
-        $('<div></div>')
-          .html('<li class="test">' + t + '<div class="toggle"><span class="reply">Reply</span><span class="rt">Retweet</span><span class="favorite">Favorite</span></div></li>')
-          .prependTo('#tweets');
-      });
-	  function tweet(){
-		socket.emit('post', {mode: "tweet", text: $("#textbox").val()});
-		$("#textbox").val("");
-	  }
-    </script>
+    <script src="/javascripts/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/hq_web_main.js"></script>
+    <script type="text/javascript" src="/javascripts/twitter_toggle.js"></script>
+    <script type="text/javascript" src="/javascripts/autourl.js"></script>
   </head>
   <body>
-    <h1>Harmony Quartet</h1>
-    <div class="send">
-		<textarea name="textbox" id="textbox" cols="30" rows="10"></textarea>
-		<input type="button" value="tweet" onclick="tweet();">
-	</div>
-    <ul>
-    <div id="tweets"></div>
+    <h1><%= title %></h1>
+	  <!-- debug --><a href="/">back to /</a>
+    <div class="tabBundler">
+      <div id="recent" class="boxs timeline">
+      </div>
+      <div id="reply" class="boxs timeline">
+      </div>
+      <div id="favorites" class="boxs timeline">
+      </div>
+      <div id="search" class="boxs timeline">
+      </div>
+    </div>
+    <ul id="tabs">
+      <li name="recent" onclick='tab("recent");' class="boxs">
+        <span class="pad">Recent</span>
+      </li>
+      <li name="reply" onclick='tab("reply");' class="boxs">
+        <span class="pad">Reply</span>
+      </li>
+      <li name="favorites" onclick='tab("favorites");' class="boxs">
+        <span class="pad">Favorites</span>
+      </li>
+      <li name="search" onclick='tab("search");' class="boxs">
+        <span class="pad">Search</span>
+      </li>
     </ul>
+    <div class="textBoxAndPostButton">
+      <textarea id="textbox" cols="30" rows="10"></textarea>
+      <input class ="postbutton" type="button" value="post" onclick="click_post_button();" />
+    </div>
   </body>
 </html>

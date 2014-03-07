@@ -1,11 +1,8 @@
-
-/*
- * GET home page.
- */
-
+/* GET home page. */
 exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
-  res.render('index', {
-	content: req.body.textbox
-  });
+  res.render('index', { title: 'HarmonyQuartet' });
 };
+exports.main = function(req, res){
+  res.render('index', { title: 'HarmonyQuartet' });
+}
+//exports. some pages routing role

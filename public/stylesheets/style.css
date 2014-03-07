@@ -1,52 +1,112 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Lucida  Grande", Helvetica, Arial, sans-serif;
+  background-color:#686464;
 }
 
 a {
   color: #00B7FF;
 }
 
-li {
-  height:53px;
-  padding: 5px;
-  margin-bottom: 7px;
-  color: #FFF;
-  background-color: #0593e2;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-}
-.reply{
-  background-color:#922c2c;
-}
-img {
-  position:absolute;
+textarea {
+  height: 62px;
+  width: 945px;
   float:left;
 }
-.tweet{
-  padding-left:53px;
+
+input.postbutton {
+  height: 70px;
+  width: 50px;  
 }
-textarea{
-  height:60px;
-  width:800px;
+
+ul#tabs {
+  width: 302px;
+  list-style: none;
 }
-.toggle{
+
+ul#tabs li {
+  padding: 5px 0;
+  border-right: 1px #963939 solid;
+  display: inline;
+  background-color: #dfdbdb;
+}
+
+span.pad {
+  padding: 3px;
+}
+
+ul#tabs li#last {
+  border-right: 0;
+}
+
+ul#tabs li.open {
+  background-color: #333;
+  color: #fff;
+}
+
+.timeline {
+  overflow: auto;
+  width: 1000px;
+  height: 630px;
+}
+
+div#recent {
+  background-color: #ffffff;
+}
+
+div#reply {
+  background-color: yellow;
+}
+
+div#favorites {
+  background-color: green;
+}
+
+div#search {
+  background-color: red;
+}
+
+div.toggleReaction {
   display:inline;
   float:right;
+  background-color: #331212;
 }
-.reply, .rt, .favorite{
-  margin-left:5px;
+span.toggleParts {
+  text-decoration-line: underline;
+  border-right:4px solid #490f0f;
   padding-left:5px;
-  margin-right:5px;
-  padding-right:5px;
 }
-.reply{
-  background-color:#861313;
+div.statusIstweet {
+  height: 80px;
+  border-top:0.5px solid #7f7e7b;
+  border-top:0.5px solid #7f7e7b;
+  border-right:1px solid #7f7e7b;
+  border-right:1px solid #7f7e7b;
+  clear:both;
+  background-color:#b9a3a3;
 }
-.rt{
-  background-color:#0b4747;
+div.statusIsreply {
+  height: 80px;
+  border-top:0.5px solid #7f7e7b;
+  border-top:0.5px solid #7f7e7b;
+  border-right:1px solid #7f7e7b;
+  border-right:1px solid #7f7e7b;
+  clear:both;
+  background-color:green;
 }
-.favorite{
-  background-color:#cc6e28;
+img.userIcon {
+  height: 48px;
+  width: 48px;
+  float:left;
+}
+
+div.userName {
+  border:1px solid #a9a9a9;
+}
+
+div.tweetBody {
+  margin:10pxl;
+  height:40px;
+  width:800px;
+  overflow:auto;
 }

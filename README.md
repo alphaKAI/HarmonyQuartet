@@ -1,26 +1,24 @@
 #Harmony　Quartet
-## なにこれ
-Node.jsを使って開発中のツイッタークライアント  
-JavaScript楽しい！！✌('ω'✌)三✌('ω')✌三(✌'ω')✌  
-ただし、α改はJavaScript触り始めて1日なので理解できてません(初回commit時)  
-ツイートとタイムラインの表示が出来ます 他はこれから実装するよ  
+## What is this?
+  This is an Twitter client written in Node.js  
+  Now Developing : unstable and not compleat  
   
+## Prerequirements
+* Node.js
   
-##Installation
-前提としてnode.jsが必要です  
-前提のパッケージとしてsocket.io,ntwitter,expressを要求します  
+## Installation
 ``` shell
-$ npm　install socket.io ntwitter express
-$ git clone https://github.com/alphaKAI/HarmonyQuartet.git
+$ git clone https://github.com/alphaKAI/HarmonyQuartet.git  
+$ cd HarmonyQuartet  
+$ npm install  
 ```
   
+## How to use
+``` shell
+$ node hq.js
+```
+  and please access :  `http://localhost:3000`  
   
-##Setting
-app.jsの中にコンシューマーキーとアクセストークンを設定してください  
-  
-  
-##LICENSE
-GPLv3 LICENSE  
-Copyleft (C) alphaKAI 2013 http://alpha-kai-net.info  
-  
-  
+## LICENSE
+MIT LICENSE  
+Copyleft (C) alphaKAI 2013 - 2014 http://alpha-kai-net.info  
