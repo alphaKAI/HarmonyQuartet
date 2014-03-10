@@ -5,13 +5,13 @@
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/utility.js"></script>
     <script type="text/javascript" src="/javascripts/hq_web_main.js"></script>
     <script type="text/javascript" src="/javascripts/twitter_toggle.js"></script>
-    <script type="text/javascript" src="/javascripts/autourl.js"></script>
   </head>
   <body>
     <h1><%= title %></h1>
-	  <!-- debug --><a href="/">back to /</a>
+	  
     <div class="tabBundler">
       <div id="recent" class="boxs timeline">
       </div>
@@ -23,16 +23,16 @@
       </div>
     </div>
     <ul id="tabs">
-      <li name="recent" onclick='tab("recent");' class="boxs">
+      <li name="recent" id="lirecent" onclick='tabClick("recent");' class="boxs tab">
         <span class="pad">Recent</span>
       </li>
-      <li name="reply" onclick='tab("reply");' class="boxs">
+      <li name="reply" id="lireply" onclick='tabClick("reply");' class="boxs tab">
         <span class="pad">Reply</span>
       </li>
-      <li name="favorites" onclick='tab("favorites");' class="boxs">
+      <li name="favorites" id="lifavorites" onclick='tabClick("favorites");' class="boxs tab">
         <span class="pad">Favorites</span>
       </li>
-      <li name="search" onclick='tab("search");' class="boxs">
+      <li name="search" id="lisearch" onclick='tabClick("search");' class="boxs tab">
         <span class="pad">Search</span>
       </li>
     </ul>

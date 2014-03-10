@@ -8,17 +8,19 @@
         "start":  "node  hq.js"
     },
     "dependencies":  {
-        "express":  "~3.4.8",
         "static-favicon":  "~1.0.0",
-        "morgan":  "~1.0.0",
         "cookie-parser":  "~1.0.1",
         "body-parser":  "~1.0.0",
+        "express":  "~3.4.8",
+        "morgan":  "~1.0.0",
         "debug":  "~0.7.4",
-        "ejs":  "~0.8.5",
-        "twit":  "*",
         "socket.io":  "*",
-        "qs":  "*",
-        "confu":  "*"
+        "ejs":  "~0.8.5",
+        "confu":  "*",
+        "async": "*",
+        "oauth": "*",
+        "twit":  "*",
+        "qs":  "*"
     },
     "author":  "alphaKAI",
     "license":  "MIT"

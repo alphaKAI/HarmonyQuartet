@@ -1,17 +1,16 @@
 window.onload = function(){
  tab("recent"); 
   in_reply_to_status_id = null;
-  socket     = io.connect("http://localhost:3000");
-  select_id = null;
+  socket     = io.connect("http://192.168.0.7:3000");
+  select_id  = null;
   admin_name = null;
+  reply_flag = false;
   socket_io_toggle();
   socket.emit("initialize", null);
 }
 function socket_io_toggle(){
   socket.on("initialize", function(data){ admin_name = data; });
   socket.on("tweet", function(data){
-    console.log(data.text);
-    console.log(data.icon_url);
     build_format(data);
   });
   socket.on("reply", function(data){
@@ -21,15 +20,19 @@ function socket_io_toggle(){
 function set_id(id){
   in_reply_status_id = id;
 }
+function unset_id(){
+  in_reply_status_id = null;
+}
 function build_format(data){
   var div_string = 
     ' <div class ="statusIs' + data.status + '" id="' + data.id + '" '
-  + ' onclick="javascript:click_tweet(\'' + data.id + '\');" > ' 
+  + ' onclick="javascript:click_tweet(\'' + data.id + '\');" ' 
+  + ' ondblclick="javascript:dreply(\'' + data.screen_name+ '\', \'' + data.id +'\');" > '
   + '   <img class="userIcon" src="'+ data.icon_url +'" /> '
   + '   <div class="userName">'+ data.name +'(@'+ data.screen_name+')</div> '
   + '   <div class="tweetBody">' + data.text + '</div> '
   + '   <div class="toggleReaction"> '
-  + '     <a class="toggle" href="javascript:reply(\'' + data.screen_name+ '\', \'' + data.id +'\');"> '
+  + '     <a class="toggle" href="javascript:dreply(\'' + data.screen_name+ '\', \'' + data.id +'\');"> '
   + '       <span class="toggleParts">Reply</span> '
   + '     </a> '
   + '     <a class="toggle" href="javascript:retweet(\''+ data.id +'\');"> '
@@ -69,13 +72,26 @@ function adding_tweet_to_tab(data){
 function click_post_button(){
   post($("#textbox").val());
   in_reply_to_status_id = null;
-   $("#textbox").val("");
+  $("#textbox").val("");
 }
 function click_tweet(id){
-  set_id(id);
-  $("#"+id).css("background-color", "red");
-  if(select_id) $("#" + select_id).css("background-color", "#b9a3a3");
+  if(select_id == id){ unset_id(); }
+    else{ set_id(id); }
+  if(reply_flag){
+    $("#textbox").val("");
+    reply_flag = false;
+  }
+  var beforeColor = rgbConvertToHex($("#" + id).css("background-color"));
+  $("#"+id).css("background-image", 'url("/images/select.png")');
+  $("#"+id).css("background-size", "contain");
+  if(select_id) $("#" + select_id).css("background-image", "");
   select_id = id;
+}
+function dreply(target_id, status_id){
+  select_id = null;
+  click_tweet(status_id);
+  reply_flag = true;
+  reply(target_id, status_id);
 }
 function reply(target_id, status_id){
   set_id(status_id);
@@ -90,11 +106,11 @@ function tab(id) {
 			if(n == id) {
 				box.style.display		= "block";
 				box.style.visibility	= "visible";
-				lis[i].className		= "open boxs timeline";
+				lis[i].className		= "open boxs tab";
 			} else {
 				box.style.display		= "none";
 				box.style.visibility	= "hidden";
-				lis[i].className		= "boxs timeline";
+				lis[i].className		= "boxs tab";
 			}
 		} else {
 			lis[i].onclick = function() {
@@ -102,4 +118,12 @@ function tab(id) {
 			}
 		}
 	}
+}
+function tabClick(id){
+  tab(id);
+  $("#"+ id).click(function(){
+	  $("#"+ id).fadeOut('slow',function(){
+  	  $("#"+ id).fadeIn('slow');
+  	});
+  });
 }

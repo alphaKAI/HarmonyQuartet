@@ -65,7 +65,12 @@ div#favorites {
 div#search {
   background-color: red;
 }
-
+li.tab:hover{
+	background-color:#8a4444;
+	transition:background-color;
+	transition-duration: 0.6s;
+	transition-timing-function:ease-out;
+}
 div.toggleReaction {
   display:inline;
   float:right;
