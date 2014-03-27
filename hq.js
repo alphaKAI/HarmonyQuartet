@@ -109,7 +109,7 @@ var server = http.createServer(app).listen(app.get("port"), function (){
   console.log("Express server listening on port " + app.get("port"));
 });
 
-var io = require("socket.io").listen(server);
+var io = require("socket.io").listen(server).set("log level", 1);
 
 var setting_file = confu("setting.json");
 var account = {
@@ -168,15 +168,14 @@ function start(req, res){
       emit_to_client("initialize", ref_admin_name(twitter), session_id);
     });
     socket.on("tweet", function (data){
-      twitter.post("statuses/update", { status: data.text }, function (err, res){
-      });
+      twitter.post("statuses/update", {
+        status: data.text
+      }, function (err, res){});
     });
     socket.on("reply", function (data){
-    console.log("Reply!");
-      twitter.post("statuses/update", { status: data.text, 
-      in_reply_to_status_id: data.in_reply_to_status_id }, function (err, res){
-        console.log(res);
-      });
+        status: data.text, 
+      in_reply_to_status_id: data.in_reply_to_status_id
+      }, function (err, res){});
     });
 
     socket.on("disconnect", function (){
@@ -186,7 +185,7 @@ function start(req, res){
   });
 
   ustream.on("tweet", function (data){
-    data.text = data.text.replace(/(https?|ftp)(:\/\/[-_.!~*?'()a-zA-Z0-9;?/?:?@&=+?$,%#]+)/gi, '<a href="$1$2">$1$2</a> ');
+    data.text = data.text.replace(/(https?|ftp)(:\/\/[-_.!~*?'()a-zA-Z0-9;?\/?:?@&=+?$,%#]+)/gi, '<a href="$1$2">$1$2</a> ');
     if(data.text.match(admin_name)){
       emit_to_client("reply", {
         "status": "reply",

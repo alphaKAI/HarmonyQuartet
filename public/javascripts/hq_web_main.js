@@ -1,7 +1,7 @@
 window.onload = function(){
- tab("recent"); 
+  tab("recent"); 
   in_reply_to_status_id = null;
-  socket     = io.connect("http://192.168.0.7:3000");
+  socket     = io.connect("http://127.0.0.1:3000");
   select_id  = null;
   admin_name = null;
   reply_flag = false;
@@ -9,7 +9,9 @@ window.onload = function(){
   socket.emit("initialize", null);
 }
 function socket_io_toggle(){
-  socket.on("initialize", function(data){ admin_name = data; });
+  socket.on("initialize", function(data){
+    admin_name = data;
+  });
   socket.on("tweet", function(data){
     build_format(data);
   });
@@ -18,10 +20,10 @@ function socket_io_toggle(){
   });
 }
 function set_id(id){
-  in_reply_status_id = id;
+  in_reply_to_status_id = id;
 }
 function unset_id(){
-  in_reply_status_id = null;
+  in_reply_to_status_id = null;
 }
 function build_format(data){
   var div_string = 
@@ -75,8 +77,10 @@ function click_post_button(){
   $("#textbox").val("");
 }
 function click_tweet(id){
-  if(select_id == id){ unset_id(); }
-    else{ set_id(id); }
+  if(select_id == id)
+    unset_id();
+  else
+    set_id(id);
   if(reply_flag){
     $("#textbox").val("");
     reply_flag = false;
@@ -92,6 +96,7 @@ function dreply(target_id, status_id){
   click_tweet(status_id);
   reply_flag = true;
   reply(target_id, status_id);
+  reply_flag = false;
 }
 function reply(target_id, status_id){
   set_id(status_id);
