@@ -5,7 +5,20 @@ function post(text){
     });
   } else {
     socket.emit("reply", {
-      text: text, "in_reply_to_status_id": in_reply_to_status_id
+      text: text,
+      in_reply_to_status_id: in_reply_to_status_id
     });
   }
+}
+function favorite(id){
+  //Destory is not yet
+  socket.emit("favorite", {
+    id: id
+  });
+}
+function retweet(id){
+  //Destory is not yet
+  socket.emit("retweet", {
+    id: id
+  });
 }

@@ -148,10 +148,13 @@ function get_access_token(){
   need_oauth_flag = true;
 }
 function get_admin_name(twitter){
-  twitter.get("account/verify_credentials", function (err, res){ admin_name = res["screen_name"]; });
+  twitter.get("account/verify_credentials", function (err, res){
+    admin_name = res["screen_name"];
+  });
 }
 function ref_admin_name(twitter){
-  if(!admin_name){ admin_name = get_admin_name(twitter); }
+  if(!admin_name)
+    admin_name = get_admin_name(twitter);
   return admin_name;
 }
 var session_status = false;
@@ -167,14 +170,39 @@ function start(req, res){
     socket.on("initialize", function (){
       emit_to_client("initialize", ref_admin_name(twitter), session_id);
     });
+
     socket.on("tweet", function (data){
       twitter.post("statuses/update", {
         status: data.text
       }, function (err, res){});
     });
+
+    socket.on("tweetDestory", function (data){
+      twitter.post("statuses/destroy/:id")
+    });
+
     socket.on("reply", function (data){
+      twitter.post("statuses/update", {
         status: data.text, 
-      in_reply_to_status_id: data.in_reply_to_status_id
+        in_reply_to_status_id: data.in_reply_to_status_id
+      }, function (err, res){});
+    });
+
+    socket.on("retweet", function (data){
+      twitter.post("statuses/retweet/:id", {
+        id: data.id
+      }, function (err, res){});
+    });
+  
+    socket.on("favorite", function (data){
+      twitter.post("favorites/create", {
+        id: data.id
+      }, function (err, res){});
+    });
+
+    socket.on("unfavorite", function (data){
+      twitter.post("favorites/destroy", {
+        id: data.id
       }, function (err, res){});
     });
 

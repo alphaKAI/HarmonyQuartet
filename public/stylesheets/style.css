@@ -1,11 +1,14 @@
 body {
-  padding: 50px;
+  margin-top:20px;
+  margin-left:50px;
   font: 14px "Lucida  Grande", Helvetica, Arial, sans-serif;
-  background-color:#686464;
+  background-color:#2c2c2c;
+  color:white;
 }
 
 a {
-  color: #00B7FF;
+  color: #b9d3e2;
+  text-decoration:none;
 }
 
 textarea {
@@ -20,15 +23,18 @@ input.postbutton {
 }
 
 ul#tabs {
-  width: 302px;
+  width: 1000px;
+  background-color:#939393;
+  padding:5px 0px;
+  /* 302 */
   list-style: none;
 }
 
 ul#tabs li {
-  padding: 5px 0;
-  border-right: 1px #963939 solid;
+  padding:5px 0px;
+  border-right: 1px #939393 solid;
   display: inline;
-  background-color: #dfdbdb;
+  background-color: #2e396a;
 }
 
 span.pad {
@@ -40,7 +46,7 @@ ul#tabs li#last {
 }
 
 ul#tabs li.open {
-  background-color: #333;
+  background-color: #40919b;
   color: #fff;
 }
 
@@ -55,49 +61,51 @@ div#recent {
 }
 
 div#reply {
-  background-color: yellow;
+  background-color: #b14f5d;
 }
 
 div#favorites {
-  background-color: green;
+  background-color: #bc9267;
 }
 
 div#search {
-  background-color: red;
+  background-color: #76bf99;
 }
-li.tab:hover{
-	background-color:#8a4444;
-	transition:background-color;
-	transition-duration: 0.6s;
-	transition-timing-function:ease-out;
+li.tab:hover {
+  background-color:#8a4444;
+  transition:background-color;
+  transition-duration: 0.6s;
+  transition-timing-function:ease-out;
 }
 div.toggleReaction {
   display:inline;
   float:right;
-  background-color: #331212;
 }
 span.toggleParts {
   text-decoration-line: underline;
-  border-right:4px solid #490f0f;
-  padding-left:5px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+a.treply {
+  border-left:2px #a4a4a4 solid;
+  background-color: #9f3d3e;
+}
+a.tretweet {
+  border-left:2px #a4a4a4 solid;
+  background-color:#21334c;
+}
+a.tfavorite {
+  border-left:2px #a4a4a4 solid;
+  border-right:2px #a4a4a4 solid;
+  background-color:#b87d4a;
 }
 div.statusIstweet {
   height: 80px;
-  border-top:0.5px solid #7f7e7b;
-  border-top:0.5px solid #7f7e7b;
-  border-right:1px solid #7f7e7b;
-  border-right:1px solid #7f7e7b;
-  clear:both;
-  background-color:#b9a3a3;
+  background-color:#387a87;
 }
 div.statusIsreply {
   height: 80px;
-  border-top:0.5px solid #7f7e7b;
-  border-top:0.5px solid #7f7e7b;
-  border-right:1px solid #7f7e7b;
-  border-right:1px solid #7f7e7b;
-  clear:both;
-  background-color:green;
+  background-color:#943a41;
 }
 img.userIcon {
   height: 48px;
@@ -106,7 +114,7 @@ img.userIcon {
 }
 
 div.userName {
-  border:1px solid #a9a9a9;
+  border:1px solid #48a5a6;
 }
 
 div.tweetBody {
