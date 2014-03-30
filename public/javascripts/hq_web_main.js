@@ -1,5 +1,5 @@
 window.onload = function(){
-  tab("recent"); 
+  tab("recent", "tabs"); 
   in_reply_to_status_id = null;
   socket     = io.connect("http://127.0.0.1:3000");
   select_id  = null;
@@ -7,24 +7,84 @@ window.onload = function(){
   reply_flag = false;
   socket_io_toggle();
   socket.emit("initialize", null);
+  nowOpen = $(".open").attr("id").replace(/^li/, "");
+  
+  $("#btn").click(function() {
+    $("#overlay").css("display", "block");
+  });
+  $("#close").click(function() {
+    $("#overlay").css("display", "none");
+  });
 }
+
+function ClickUserPage(userName){ 
+  closeUserPage();
+  requestBuildUserPage(userName);
+  //Rquest to Server
+}
+
+function requestUserPage(userName){
+  socket.emit("getUserPage", {
+    id: userName
+  });
+}
+
+function showUserPage(data){
+  $("#overlay text").prepend(data);
+  $("#overlay").css("display", "block");
+}
+
+function userPageInit(){
+  tab("userTweetsBox", "tabs2");
+}
+
+function openUserPage(){
+  $("#overlay").css("display", "block");
+}
+
+function closeUserPage(){
+  $("#overlay").css("display", "none");
+  $("#overlay #text").text("");
+}
+
+function scrollContorlAdd(){
+  var scrollPosition = 0;
+  scrollPosition     = $("#"+nowOpen).scrollTop();
+  if(scrollPosition != 0)
+    $("#"+nowOpen).scrollTop(scrollPosition + 80);
+  else
+    gotoTop();
+}
+
+function gotoTop(){
+  $("#"+nowOpen).scrollTop(0);
+}
+
 function socket_io_toggle(){
   socket.on("initialize", function(data){
     admin_name = data;
   });
   socket.on("tweet", function(data){
+    scrollContorlAdd();
     build_format(data);
   });
   socket.on("reply", function(data){
+    scrollContorlAdd();
     build_format(data);
   });
+  socket.on("userPage", function(data){
+    showUserPage(data);
+  });
 }
+
 function set_id(id){
   in_reply_to_status_id = id;
 }
+
 function unset_id(){
   in_reply_to_status_id = null;
 }
+
 function build_format(data){
   var div_string = 
     ' <div class ="statusIs' + data.status + '" id="' + data.id + '" '
@@ -49,10 +109,10 @@ function build_format(data){
   switch(data.status){
     case "tweet":
       target = "recent";
-      break;
+    break;
     default:
       target = data.status;
-      break;
+    break;
   }
   var arg_data = {
     "target": target,
@@ -60,22 +120,25 @@ function build_format(data){
   }
   adding_tweet_to_tab(arg_data);
 }
+
 function adding_tweet_to_tab(data){
   var target = data.target;
   var div_string = data.div_string;
   switch(target){
     case "reply":
       $("#reply").prepend(div_string);
-      target = "recent";
-      break;
+    target = "recent";
+    break;
   }
   $("#" + target).prepend(div_string);
 }
+
 function click_post_button(){
   post($("#textbox").val());
   in_reply_to_status_id = null;
   $("#textbox").val("");
 }
+
 function click_tweet(id){
   if(select_id == id)
     unset_id();
@@ -86,11 +149,18 @@ function click_tweet(id){
     reply_flag = false;
   }
   var beforeColor = rgbConvertToHex($("#" + id).css("background-color"));
-  $("#"+id).css("background-image", 'url("/images/select.png")');
+  //$("#"+id).css("background-image", 'url("/images/select.png")');
+  $("#"+id).css("background-color", "#c99d5e");
+  $("#"+id).addClass("select");
   $("#"+id).css("background-size", "contain");
-  if(select_id) $("#" + select_id).css("background-image", "");
+  //if(select_id) $("#" + select_id).css("background-image", "");
+  if(select_id){
+    $("#" + select_id).css("background-color", "#"+beforeColor);
+    $("#" + select_id).removeClass("select")
+  }
   select_id = id;
 }
+
 function dreply(target_id, status_id){
   select_id = null;
   click_tweet(status_id);
@@ -98,37 +168,41 @@ function dreply(target_id, status_id){
   reply(target_id, status_id);
   reply_flag = false;
 }
+
 function reply(target_id, status_id){
   set_id(status_id);
+  $("#textbox").focus();
   $("#textbox").val("@" + target_id + " ");
 }
-function tab(id) {
-	var lis = document.getElementById("tabs").getElementsByTagName("li");
-	for(var i = 0; i < lis.length;i++) {
-		if(id) {
-			var n = lis[i].getAttribute("name");
-			var box = document.getElementById(n);
-			if(n == id) {
-				box.style.display		= "block";
-				box.style.visibility	= "visible";
-				lis[i].className		= "open boxs tab";
-			} else {
-				box.style.display		= "none";
-				box.style.visibility	= "hidden";
-				lis[i].className		= "boxs tab";
-			}
-		} else {
-			lis[i].onclick = function() {
-				tab(this.getAttribute("name"));
-			}
-		}
-	}
+
+function tab(id, tabName) {
+  var lis = $("#"+ tabName +" li");
+  lis.each(function(i, elem){
+    if(id){
+      var n = $(elem).attr("name");
+      var box = $("#"+n).get(0);
+      if(n == id){
+        box.style.display    = "block";
+        box.style.visibility = "visible";
+        elem.className       = "open boxs tab";
+      } else {
+        box.style.display    = "none";
+        box.style.visibility = "hidden";
+        elem.className       = "boxs tabs";
+      }
+    } else {
+      elem.onclick = function(){
+        tab($(this).attr("name"));
+      };
+    }
+  });
 }
-function tabClick(id){
-  tab(id);
+
+function tabClick(id, tabName){
+  tab(id, tabName);
   $("#"+ id).click(function(){
-	  $("#"+ id).fadeOut('slow',function(){
-  	  $("#"+ id).fadeIn('slow');
-  	});
+    $("#"+ id).fadeOut("slow", function(){
+      $("#"+ id).fadeIn("slow");
+    });
   });
 }

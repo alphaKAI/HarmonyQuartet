@@ -32,7 +32,7 @@ app.configure(function (){
   app.use(express.cookieParser());
   app.use(express.favicon());
   app.use(express.json());
-  app.use(express.logger("dev"));
+//  app.use(express.logger("dev"));
   app.use(express.methodOverride());
   app.use(express.session({ secret: "y123h89d" }));
   app.use(express.static(__dirname + "/public"));
@@ -157,6 +157,44 @@ function ref_admin_name(twitter){
     admin_name = get_admin_name(twitter);
   return admin_name;
 }
+function buildUserPage(data){
+  var tasks = []; 
+  var target = data.id;
+  var tweets;
+  var followings
+  var followers;
+  
+  // These functions is not work
+  tasks[0] = function(){
+    console.log("task1");
+    tweets = twitter.get("statuses/user_timeline", {
+      screen_name:target,
+      count:10
+    }, function(err, res){});
+  };
+  tasks[1] = function(){
+    console.log("task2");
+    followings = twitter.get("friends/ids", {
+      screen_name:target
+    }, function(err, res){});
+  };
+  tasks[2] = function(){
+    console.log("task3");
+    followers = twitter.get("followers/ids", {
+      screen_name:target
+    });
+  };
+  tasks[3] = function(){
+    console.log("tweets");
+    console.log(tweets);
+    console.log("followings");
+    console.log(followings);
+    console.log("followers");
+    console.log(followers);
+  }
+  async.series(tasks);
+  //
+}
 var session_status = false;
 function start(req, res){
   // Check access token
@@ -206,6 +244,11 @@ function start(req, res){
       }, function (err, res){});
     });
 
+    socket.on("getUserPage", function (data){
+      console.log("start");
+      buildUserPage(data);
+      //emit_to_client("userPage", buildUserPage(data), session_id);
+    });
     socket.on("disconnect", function (){
       session_id = null;
       session_status = false;
