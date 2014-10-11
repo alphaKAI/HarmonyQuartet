@@ -1,27 +1,30 @@
 {
-    "name": "HarmonyQuartet",
-    "version": "0.0.1 alpha",
-    "description": "Twitter Client Written in Node.js",
-    "main": "hq.js",
-    "private": true,
-    "scripts": {
-        "start": "node  hq.js"
-    },
-    "dependencies": {
-        "static-favicon": "~1.0.0",
-        "cookie-parser": "~1.0.1",
-        "body-parser": "~1.0.0",
-        "express": "~3.4.8",
-        "morgan": "~1.0.0",
-        "debug": "~0.7.4",
-        "socket.io": "*",
-        "ejs": "~0.8.5",
-        "confu": "*",
-        "async": "*",
-        "oauth": "*",
-        "twit": "*",
-        "qs": "*"
-    },
-    "author": "alphaKAI",
-    "license": "MIT"
+  "name": "HarmonyQuartet",
+  "version": "0.0.2",
+  "description": "Twitter Client Written in Node.js",
+  "main": "hq.js",
+  "private": true,
+  "scripts": {
+    "start": "node  hq.js"
+  },
+  "dependencies": {
+    "express-session": "*",
+    "connect-mongo"  : "*",
+    "serve-favicon"  : "*",
+    "cookie-parser"  : "*",
+    "body-parser"    : "*",
+    "socket.io"      : "*",
+    "mongoose"       : "*",
+    "express": "",
+    "morgan" : "",
+    "debug"  : "",
+    "confu"  : "*",
+    "async"  : "*",
+    "oauth"  : "*",
+    "twit"   : "*",
+    "ejs"    : "",
+    "qs"     : "*"
+  },
+  "author": "alphaKAI",
+  "license": "MIT"
 }

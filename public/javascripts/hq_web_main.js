@@ -19,7 +19,7 @@ window.onload = function(){
 
 function ClickUserPage(userName){ 
   closeUserPage();
-  requestBuildUserPage(userName);
+  requestUserPage(userName);
   //Rquest to Server
 }
 
